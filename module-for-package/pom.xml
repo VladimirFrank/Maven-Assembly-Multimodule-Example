@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <description>
+        In this module will be a result of maven assembly plugin packaging.
+
+        See build's configuration for details.
+
+        File src/main/resources/package.xml in this module determines
+        what the final distribution will consist of.
+    </description>
+
+    <parent>
+        <artifactId>maven-assembly-multymodule-example</artifactId>
+        <groupId>ru.frank</groupId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+
+    <artifactId>module-for-package</artifactId>
+    <packaging>pom</packaging>
+
+    <dependencies>
+        <dependency>
+            <groupId>ru.frank</groupId>
+            <artifactId>module-1</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>ru.frank</groupId>
+            <artifactId>module-2</artifactId>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>package-artifacts</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                        <configuration>
+                            <!-- Final distributive name.
+                            Distribute extension depends on plugin configuration in xml. -->
+                            <finalName>my-archive_${project.version}</finalName>
+                            <!-- Do not add execution id's postfix. -->
+                            <appendAssemblyId>false</appendAssemblyId>
+                            <descriptors>
+                                <!-- Plugin's configuration path. -->
+                                <descriptor>src/main/resources/package.xml</descriptor>
+                            </descriptors>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>

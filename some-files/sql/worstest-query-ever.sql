@@ -1,0 +1,1 @@
+SELECT * FROM my_table WHERE NULL IS NOT NULL;
